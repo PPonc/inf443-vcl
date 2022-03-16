@@ -8,9 +8,9 @@ project(${LIBNAME}
 set(CMAKE_CXX_STANDARD 20)
 
 #include VCL lib directory
-include("vcl/CMakeLists.txt")
+include("${CMAKE_CURRENT_LIST_DIR}/vcl/CMakeLists.txt")
 #include Third party
-include("third_party/CMakeLists.txt")
+include("${CMAKE_CURRENT_LIST_DIR}/third_party/CMakeLists.txt")
 
 # Allow to sort and explore source directories as a tree structure in Visual Studio
 if(MSVC)
@@ -22,7 +22,7 @@ add_library(${LIBNAME} STATIC ${src_files_vcl} ${src_files_third_party})
 
 target_include_directories(${LIBNAME}
     PRIVATE
-        library
+        ${CMAKE_CURRENT_LIST_DIR}
     PUBLIC
-        library
+        ${CMAKE_CURRENT_LIST_DIR}
 )

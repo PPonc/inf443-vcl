@@ -5,6 +5,8 @@
 
 using namespace vcl;
 
+#define WORKDIR "/Users/pponchon/Documents/workspace/VCL/scenes/examples/01_basic_usage/01_mesh_loader/"
+
 struct gui_parameters {
 	bool display_frame = true;
 	bool wireframe = false;
@@ -43,21 +45,21 @@ mesh_drawable stegosaurus;
 void mesh_load()
 {
 	// mesh_load_file_obj parse an obj file and returns a mesh structure
-	camel = mesh_drawable( mesh_load_file_obj("assets/camel.obj"));
+	camel = mesh_drawable( mesh_load_file_obj(std::string(WORKDIR) + "assets/camel.obj"));
 
 	// If the mesh has uv coordinates (must be defined in the file), then we can use a texture image (corresponding to the uv-coordinates)
-	stegosaurus = mesh_drawable( mesh_load_file_obj("assets/stegosaurus.obj"));
-	stegosaurus.texture = opengl_texture_to_gpu( image_load_png("assets/stegosaurus.png") );
+	stegosaurus = mesh_drawable( mesh_load_file_obj(std::string(WORKDIR) + "assets/stegosaurus.obj"));
+	stegosaurus.texture = opengl_texture_to_gpu( image_load_png(std::string(WORKDIR) + "assets/stegosaurus.png") );
 
 
 	/* Notes:
-	* 
+	*
 	* - The mesh_load_file_obj follows a simple approach assuming the file contains a single object and returns a single mesh structure.
-	* - If you need to store multiple shapes (with multiple textures, etc.) you should either 
-	*       - split it into several obj files 
+	* - If you need to store multiple shapes (with multiple textures, etc.) you should either
+	*       - split it into several obj files
 	*       - or use an external parser library such as tinyobjloader for instance.
 	* - .mtl files are not read - so you need to set your shading and texture file manually
-	* 
+	*
 	*/
 }
 
@@ -65,7 +67,7 @@ void mesh_display()
 {
 	stegosaurus.transform.translate = {1,0,0};
 	camel.transform.translate = {-1,0,0};
-	
+
 	draw(camel, scene);
 	draw(stegosaurus, scene);
 
@@ -89,7 +91,7 @@ int main(int, char* argv[])
 	imgui_init(window);
 	glfwSetCursorPosCallback(window, mouse_move_callback);
 	glfwSetWindowSizeCallback(window, window_size_callback);
-	
+
 	std::cout<<"Initialize data ..."<<std::endl;
 	initialize_data();
 
@@ -100,7 +102,7 @@ int main(int, char* argv[])
 	{
 		scene.light = scene.camera.position();
 		user.fps_record.update();
-		
+
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClear(GL_DEPTH_BUFFER_BIT);
