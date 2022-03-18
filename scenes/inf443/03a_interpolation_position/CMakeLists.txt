@@ -17,14 +17,14 @@ include_directories("src")
 # Include files from the library (vcl as well as external dependencies)
 include("../../../CMakeLists.txt")
 
-
-
+include_directories(vcl_INCLUDES)
 
 # Add all files to create executable
 #  @src_files: the local file for this project
 #  @src_files_vcl: all files of the VCL library
 #  @src_files_third_party: all third party libraries compiled with the project
-add_executable(${executable_name} ${src_files_vcl} ${src_files_third_party} ${src_files})
+add_executable(${executable_name} ${src_files})
+target_link_libraries(${executable_name} vcl)
 
 # Set Compiler for Unix system
 if(UNIX)
