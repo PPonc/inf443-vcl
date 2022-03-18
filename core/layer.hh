@@ -20,7 +20,8 @@ namespace vcl::core {
 
         virtual void on_attach() {}
         virtual void on_detach() {}
-        virtual void on_update(/* TODO Timestep ts */) {}
+        virtual void on_update(float time, float dt) {}
+        virtual void on_render() {}
         virtual void on_imgui_render() {}
         virtual void on_event(event::Event& e) {}
     };
